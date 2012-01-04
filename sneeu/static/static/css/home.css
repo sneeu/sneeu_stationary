@@ -31,7 +31,7 @@ h1 {
 }
 #elsewhere {
 	margin: 0 auto;
-	width: 224px;
+	width: 272px;
 }
 #elsewhere li {
 	float: left;
@@ -42,12 +42,15 @@ h1 {
 	margin-left: 0;
 }
 #elsewhere li a {
-	background: url(../img/icons/twitter-2.png) no-repeat left top;
+	background: url(../img/icons/button-white.png) no-repeat left top;
 	display: block;
 	height: 32px;
 	position: relative;
 	text-indent: -9999em;
 	width: 32px;
+}
+#elsewhere li a[href^="http://twitter.com"] {
+	background-image: url(../img/icons/twitter-2.png);
 }
 #elsewhere li a[href^="http://github.com"] {
 	background-image: url(../img/icons/github.png);
