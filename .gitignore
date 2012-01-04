@@ -2,7 +2,6 @@
 *.swp
 bin
 *.pyc
-html
 include
 lib
 build

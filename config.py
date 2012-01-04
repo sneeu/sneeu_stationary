@@ -1,8 +1,8 @@
-TITLE = 'blog'
+TITLE = 'sneeu.com'
 
-IN_PATH = 'example/'
+IN_PATH = 'sneeu/'
 OUT_PATH = 'html/'
-DEPLOY_PATH = '/var/www/stationary/'
+DEPLOY_PATH = '/var/www/sneeu_stationary/'
 
 BLOG_URL = 'blog/'
 POST_URL = '{post.pub_date:%Y/%m/%d}/{post.slug}'
