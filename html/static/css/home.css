@@ -1,0 +1,63 @@
+html {
+	background: url(../img/beach.jpg) no-repeat center center fixed;
+	background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	-webkit-background-size: cover;
+}
+body {
+	color: #222;
+	font: 100 1em/1.5 "HelveticaNeue-UltraLight","Helvetica Neue UltraLight","Helvetica Neue",Arial,Helvetica,sans-serif;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+a:hover {
+	color: #06f;
+}
+h1 {
+	font-size: 10em;
+	line-height: 1.5em;
+}
+#holding {
+	color: #fff;
+	margin-top: -7.5em;
+	position: absolute;
+	text-align: center;
+	top: 50%;
+	width: 100%;
+}
+#elsewhere {
+	margin: 0 auto;
+	width: 224px;
+}
+#elsewhere li {
+	float: left;
+	margin: 0 0 0 16px;
+	width: 32px;
+}
+#elsewhere li:first-child {
+	margin-left: 0;
+}
+#elsewhere li a {
+	background: url(../img/icons/twitter-2.png) no-repeat left top;
+	display: block;
+	height: 32px;
+	position: relative;
+	text-indent: -9999em;
+	width: 32px;
+}
+#elsewhere li a[href^="http://github.com"] {
+	background-image: url(../img/icons/github.png);
+}
+#elsewhere li a[href^="http://foursquare.com"] {
+	background-image: url(../img/icons/foursquare.png);
+}
+#elsewhere li a[href^="http://last.fm"] {
+	background-image: url(../img/icons/lastfm.png);
+}
+#elsewhere li a[href^="http://flickr.com"] {
+	background-image: url(../img/icons/flickr.png);
+}

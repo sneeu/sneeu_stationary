@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+
+	<title>MnmlClck</title>
+
+	<style media="screen,projection" type="text/css">
+		body, html {
+			background: #000;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
+		#mnmlclck {
+			left: 50%;
+			margin: -300px 0 0 -300px;
+			position: absolute;
+			top: 50%;
+		}
+	</style>
+
+</head>
+<body>
+
+	<canvas id="mnmlclck" width="600" height="600"></canvas>
+
+	<script type="text/javascript">
+
+		var canvas = document.getElementById('mnmlclck');
+
+		var LARGE_POINTS = [[300, 0], [560, 150], [560, 450], [300, 600], [40, 450], [40, 150]];
+		var SMALL_POINTS = [[300, 115], [460, 207], [460, 393], [300, 485], [140, 393], [140, 207]];
+		var CENTRE = [300, 300];
+
+		function clear(ctx, canvas) {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+		}
+
+		function drawLargeBlock(ctx, start, end) {
+			ctx.beginPath();
+			ctx.fillStyle = "#999";
+
+			ctx.moveTo(LARGE_POINTS[start % LARGE_POINTS.length][0], LARGE_POINTS[start % LARGE_POINTS.length][1]);
+			for (var i = start; i <= end; i++) {
+				var index = i % LARGE_POINTS.length;
+				ctx.lineTo(LARGE_POINTS[index][0], LARGE_POINTS[index][1]);
+			}
+			for (var i = end; i >= start; i--) {
+				var index = i % LARGE_POINTS.length;
+				ctx.lineTo(SMALL_POINTS[index][0], SMALL_POINTS[index][1]);
+			}
+
+			ctx.fill();
+		}
+
+		function drawSmallBlock(ctx, start, end) {
+			ctx.beginPath();
+			ctx.fillStyle = "#ccc";
+
+			ctx.moveTo(SMALL_POINTS[start % SMALL_POINTS.length][0], SMALL_POINTS[start % SMALL_POINTS.length][1]);
+			for (var i = start; i <= end; i++) {
+				var index = i % SMALL_POINTS.length;
+				ctx.lineTo(SMALL_POINTS[index][0], SMALL_POINTS[index][1]);
+			}
+
+			ctx.lineTo(CENTRE[0], CENTRE[1]);
+
+			ctx.fill();
+		}
+
+		if (canvas.getContext) {
+			var context = canvas.getContext('2d');
+
+			var i = 0;
+			function drawTime() {
+				var theTime = new Date();
+
+				var hours = theTime.getHours();
+				var minutes = theTime.getMinutes();
+
+				// Fake the time
+				// var hours = 10;
+				// var minutes = 5;
+
+				hours = hours % 12;
+				minutes = Math.floor(minutes / 5) % 12;
+
+				var hoursEnd = Math.min(hours, 6);
+				var hoursStart = hours - hoursEnd;
+
+				var minsEnd = Math.min(minutes, 6);
+				var minsStart = minutes - minsEnd;
+
+				clear(context, canvas);
+				drawLargeBlock(context, Math.min(hoursStart, hoursEnd), Math.max(hoursStart, hoursEnd));
+				drawSmallBlock(context, Math.min(minsStart, minsEnd), Math.max(minsStart, minsEnd));
+
+				setTimeout(drawTime, 1000);
+			}
+			drawTime();
+		}
+
+	</script>
+
+</body>
+</html>

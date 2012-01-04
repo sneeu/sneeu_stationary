@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8" />
+	<title>Iteration, iteration, iteration.</title>
+
+	<style type="text/css" media="screen">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			color: #999;
+			font: 100%/1.5em "Helvetica Neue",Arial,Helvetica,sans-serif;
+			margin: 3em auto;
+			width: 834px;
+		}
+
+		h1 {
+			color: #333;
+			font-size: 2em;
+			line-height: 1.5em;
+		}
+		img {
+			border: 1px solid #ddd;
+		}
+
+		header {
+			padding: 1.5em 8px 3em;
+		}
+		ol li {
+			float: left;
+			list-style: none;
+			padding: 0 8px 1.5em;
+			width: 258px;
+		}
+		ol li:nth-child(3n+1) {
+			clear: left;
+		}
+	</style>
+
+</head>
+<body>
+
+	<header>
+		<h1>Iteration, iteration, iteration.</h1>
+		<p>First presented at Python Edinburgh Mini–Conference 2011.</p>
+	</header>
+
+	<ol>
+		<li>
+			<img src="slide_01.png" />
+			<p>Pre-talk holding slide.</p>
+		</li>
+		<li>
+			<img src="slide_02.png" />
+			<p>I’m John Sutherland, I work at a small startup, I write Python and JavaScript all day.</p>
+			<p>Does anyone know what these letters, +s and -s are?</p>
+		</li>
+		<li>
+			<img src="slide_03.png" />
+			<p>There’s going to be a lot of code.</p>
+			<p>The code isn’t PEP8—it needs to fit on my slides.</p>
+
+			<p>Green for focus, blue for output, red for errors.</p>
+
+			<p>Almost all software is run more than once.</p>
+			<p>Almost all software does the same thing to more than once to the input.</p>
+
+			<p>I don’t use these things everyday, but they’re useful to know.</p>
+			<p>I’m hoping to understand this as much as you by explaining it.</p>
+		</li>
+		<li>
+			<img src="slide_04.png" />
+			<p>Here are a few of my favourites.</p>
+		</li>
+		<li>
+			<img src="slide_05.png" />
+			<p>`iter` will work on `list`, `tuple`, `set`, and anything with a `__iter__` defined.</p>
+			<p>An iterator should define `__iter__`, or `next`.</p>
+		</li>
+		<li>
+			<img src="slide_06.png" />
+			<p>Generate an infinite sequence of numbers.</p>
+		</li>
+		<li>
+			<img src="slide_07.png" />
+		</li>
+		<li>
+			<img src="slide_08.png" />
+			<p>Map a function over an iterator.</p>
+		</li>
+		<li>
+			<img src="slide_09.png" />
+			<p></p>
+		</li>
+		<li>
+			<img src="slide_10.png" />
+			<p>Filter an iterator.</p>
+		</li>
+		<li>
+			<img src="slide_11.png" />
+		</li>
+		<li>
+			<img src="slide_12.png" />
+			<p>Actually just like the name!</p>
+		</li>
+		<li>
+			<img src="slide_13.png" />
+			<p>Generates an iterator that keeps returning values until a function returns False.</p>
+		</li>
+		<li>
+			<img src="slide_14.png" />
+			<p>Generates an iterator that starts returning values once a function returns False.</p>
+		</li>
+		<li>
+			<img src="slide_15.png" />
+			<p>Generates all permutations of a sequence, of a certain length. Useful for some of the Project Euler problems, and doing your secret santa.</p>
+		</li>
+		<li>
+			<img src="slide_16.png" />
+		</li>
+		<li>
+			<img src="slide_17.png" />
+			<p>So it’s more to type, but it’s more obvious what’s going on.</p>
+			<p>You see the square brackets, and you know you’re going to get a list.</p>
+		</li>
+		<li>
+			<img src="slide_18.png" />
+		</li>
+		<li>
+			<img src="slide_19.png" />
+			<p>Note that the right-most `for` is the inner most `for`.</p>
+		</li>
+		<li>
+			<img src="slide_20.png" />
+			<p>map, filter, and reduce: the three amigos.</p>
+		</li>
+		<li>
+			<img src="slide_21.png" />
+		</li>
+		<li>
+			<img src="slide_22.png" />
+			<p>If you know what foldl and foldr are, Python’s reduce is foldl.</p>
+		</li>
+		<li>
+			<img src="slide_23.png" />
+		</li>
+		<li>
+			<img src="slide_24.png" />
+			<p>2to3 will wrap calls to map, and filter in a call to list</p>
+			<p>map, filter, and reduce take us very nicely to higher-order functions.</p>
+		</li>
+		<li>
+			<img src="slide_25.png" />
+			<p>map, filter, and reduce take us very nicely to higher-order functions.</p>
+		</li>
+		<li>
+			<img src="slide_26.png" />
+		</li>
+		<li>
+			<img src="slide_27.png" />
+			<p>What’s going on?</p>
+			<p>We’ve defined a function, which: defines a function inside it, and returns it.</p>
+			<p>The returned function (power) “has a closure over” n.</p>
+		</li>
+		<li>
+			<img src="slide_28.png" />
+		</li>
+		<li>
+			<img src="slide_29.png" />
+			<p>The function c carries around a func_closure, which is a pointer back to the scope in which it was defined.</p>
+		</li>
+		<li>
+			<img src="slide_30.png" />
+			<p>What’s going on?</p>
+			<p>We’ve defined a function, which: defines a function inside it, and returns it.</p>
+			<p>The returned function (power) “has a closure over” n.</p>
+		</li>
+		<li>
+			<img src="slide_31.png" />
+		</li>
+		<li>
+			<img src="slide_32.png" />
+			<p>We’re going to replace the function `hello` with whatever is returned from `timer`. Which is `wrapper`.</p>
+			<p>`func` is the original function, which `wrapper` has a closure over, and so can call it.</p>
+			<p>We use *args, and **kwargs to make sure we don’t loose anything.</p>
+			<p>But it’s also going to print the time first.</p>
+		</li>
+		<li>
+			<img src="slide_33.png" />
+			<p>Yep, that’s really the time when I made this slide.</p>
+		</li>
+		<li>
+			<img src="slide_34.png" />
+			<p>Using the decorator wipes out our docs, and the function’s internal name, which makes debugging a pain in the ass.</p>
+		</li>
+		<li>
+			<img src="slide_35.png" />
+			<p></p>
+		</li>
+		<li>
+			<img src="slide_36.png" />
+		</li>
+		<li>
+			<img src="slide_37.png" />
+			<p>I reckon we’re about half way.</p>
+		</li>
+		<li>
+			<img src="slide_38.png" />
+		</li>
+		<li>
+			<img src="slide_39.png" />
+			<p>OK, so I’ve called the function, but I got a `generator object` instead of a value.</p>
+			<p>Don’t ask me how, but when the interpreter finds the `yield` keyword, it knows to create a generator.</p>
+			<p>For now, imagine that `yield` is like `return`, except that it also saves the state of the generator.</p>
+			<p>Best to see it in use.</p>
+		</li>
+		<li>
+			<img src="slide_40.png" />
+			<p>Calling `next` lets the generator know, “go to the next `yield`, and return me a value”.</p>
+			<p>StopIteration is raised when the generator gets to the end of the function (or if it’s explicitly raised), and is how `for` knows to stop: think back to those `itertools` functions.</p>
+			<p>For the next two minutes remember, if you see `yield`, you’re dealing with a generator.</p>
+		</li>
+		<li>
+			<img src="slide_41.png" />
+			<p>Generator expressions are to generators, what list comprehensions are to for loops.</p>
+		</li>
+		<li>
+			<img src="slide_42.png" />
+		</li>
+		<li>
+			<img src="slide_43.png" />
+			<p>Who knows what `zip` does?</p>
+		</li>
+		<li>
+			<img src="slide_44.png" />
+		</li>
+		<li>
+			<img src="slide_45.png" />
+			<p>Jump to the end of a file. Forever, keep trying to read a line from the file. If a line is returned, yield it, otherwise continue.</p>
+		</li>
+		<li>
+			<img src="slide_46.png" />
+			<p>`line` will have a `\n` on the end, so suppress `print` adding another one by adding a trailing comma.</p>
+		</li>
+		<li>
+			<img src="slide_47.png" />
+			<p>A lot of these examples are taken from <a href="http://www.dabeaz.com/coroutines/">A Curious Course on Coroutines and Concurrency</a>, which is a great read if this has whetted your appetite.</p>
+		</li>
+		<li>
+			<img src="slide_48.png" />
+			<p></p>
+		</li>
+		<li>
+			<img src="slide_49.png" />
+			<p>Generators “pull” from a source, possibly another generator.</p>
+			<p>But what if we wanted more complicated pipelines?</p>
+		</li>
+		<li>
+			<img src="slide_50.png" />
+			<p>Generators “pull” from a source, possibly another generator.</p>
+			<p>Coroutines are “pushed” data from a source, probably another coroutine.</p>
+			<p>Described in PEP 342.</p>
+			<p>How?</p>
+			<p>`yield` as an expression of course!</p>
+		</li>
+		<li>
+			<img src="slide_51.png" />
+			<p>So `grep` is now a coroutine. We’ll see how `yield` receives values in a second.</p>
+			<p>It’s easier to remember to keep yield in parenthesis, but check the PEP if you’d like to know more about when you can leave them off.</p>
+		</li>
+		<li>
+			<img src="slide_52.png" />
+			<p>`yield`s value is determined by calling `send`.</p>
+		</li>
+		<li>
+			<img src="slide_53.png" />
+		</li>
+		<li>
+			<img src="slide_54.png" />
+			<p>It was late.</p>
+			<p>Because a coroutine is actually just a generator that waits for a value to be passed in, we have to “prime” it to get it to `yield` before it can receive a value.</p>
+			<p>But this is Python, and we’re not going to muck about.</p>
+		</li>
+		<li>
+			<img src="slide_55.png" />
+			<p>Lifted wholesale from “A Curious Course on Coroutines and Concurrency”.</p>
+			<p>This automatically primes the coroutine, and I think it’s a nice looking way to distinguish coroutines.</p>
+			<p>A sink is just a fun name for a pipeline’s end point. This one is super simple: it just print out what ever is sent to it.</p>
+		</li>
+		<li>
+			<img src="slide_56.png" />
+			<p>A better grep coroutine, which takes a sink, which could be `print_sink` above, or another `grep` coroutine, or any other coroutine!</p>
+		</li>
+		<li>
+			<img src="slide_57.png" />
+		</li>
+		<li>
+			<img src="slide_58.png" />
+			<p>Remember before it was grep(tail()), sort of backwards.</p>
+			<p>Now it looks more like the way you’d think about it: from left to right.</p>
+		</li>
+		<li>
+			<img src="slide_59.png" />
+			<p>Here we’re going through all of the lines in `LOG`, and sending them to `pipe1`, and `pipe2`.</p>
+			<p>`pipe1`, and `pipe2` will in turn send those lines to `sink` if they match the pattern.</p>
+			<p>We’ll end up with lines containing either 404, or 500.</p>
+			<p>And if they both 404, and 500 appear, the line will be sent to `sink` twice.</p>
+		</li>
+		<li>
+			<img src="slide_60.png" />
+		</li>
+		<li>
+			<img src="slide_61.png" />
+		</li>
+		<li>
+			<img src="slide_62.png" />
+		</li>
+		<li>
+			<img src="slide_63.png" />
+		</li>
+		<li>
+			<img src="slide_64.png" />
+		</li>
+	</ol>
+
+</body>
+</html>

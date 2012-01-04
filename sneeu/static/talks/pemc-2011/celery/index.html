@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Celery Lightening Talk Script</title>
+<style type="text/css" media="screen,projection">
+*{font-size:1em;font-style:inherit;font-weight:inherit;margin:0;padding:0}
+body{background:#fff;color:#222;font:100%/1.5 "Helvetica Neue",Arial,Helvetica,sans-serif;margin:0;padding:3em}
+a{border-bottom:1px solid;color:#00c;font-weight:inherit;padding-bottom:1px;text-decoration:none}
+strong{font-weight:bold}
+em{font-style:italic}
+code{background:#ddd;font:100%/0 Monaco,monospace}
+h1{font-size:2em;font-weight:bold;line-height:1.5em;padding:0 0 0.75em}
+h2{font-size:1.5em;font-weight:bold;line-height:2em}
+h3{font-size:1.2em;font-weight:bold;line-height:1.25em;padding:0.625em 0}
+p,ul,ol,.address{padding:0 0 1.5em}
+ul,ol{padding-left:1.5em}
+pre{background:#ddd;border:1px solid #bbb;font:100%/1.5 Monaco,monospace;margin:-2px -1px 1.5em;padding:1.5em}
+.address span{display:block}
+</style>
+<style type="text/css" media="print">
+*{font-size:1em;font-style:inherit;font-weight:inherit;margin:0;padding:0}
+body{background:#fff;color:#222;font:100%/1.5 "Helvetica Neue",Arial,Helvetica,sans-serif;padding:3em}
+a{color:inherit;font-weight:inherit;text-decoration:none}
+a:not([href^=mailto]):after{content: " (" attr(href) ")";font-size:0.875em}
+.nolink a:after{content:""}
+strong{font-weight:bold}
+em{font-style:italic}
+code{background:#ddd;font:100%/0 Monaco,monospace}
+h1{font-size:2em;font-weight:bold;line-height:1.5em;padding:0 0 0.75em;page-break-after:avoid}
+h2{font-size:1.5em;font-weight:bold;line-height:2em;page-break-after:avoid}
+h3{font-size:1.2em;font-weight:bold;line-height:1.25em;padding:0.625em 0;page-break-after:avoid}
+p,ul,ol,.address{padding:0 0 1.5em}
+ul,ol{padding-left:1.5em}
+pre{background:#ddd;border:1px solid #bbb;font:100%/1.5 Monaco,monospace;margin:-2px -1px 1.5em;padding:1.5em}
+.address span{display:block}
+</style>
+</head>
+<body><h1>A quick look at celery</h1>
+
+<h2>Install all the stuff you need:</h2>
+
+<pre><code>sudo apt-get install rabbitmq-server
+sudo pip install celery
+</code></pre>
+
+<h3>Configure celery</h3>
+
+<pre><code>root@celerytest:~# cat celeryconfig.py
+BROKER_HOST = 'localhost'
+BROKER_PORT = 5672
+BROKER_USER = 'guest'
+BROKER_PASSWORD = 'guest'
+BROKER_VHOST = '/'
+
+CELERY_IMPORTS = ('tasks', )
+</code></pre>
+
+<h2>Start celeryd:</h2>
+
+<pre><code>celeryd --loglevel=INFO
+</code></pre>
+
+<h2>Write some tasks:</h2>
+
+<pre><code>root@celerytest:~# cat tasks.py
+import time
+from celery import task
+
+@task.task
+def add(a, b):
+    return a + b
+
+@task.task
+def long_running_add(a, b):
+    time.sleep(5)
+    return a + b
+</code></pre>
+
+<h2>Run the tasks:</h2>
+
+<pre><code>python
+
+import tasks
+tasks.add(2, 3)
+tasks.add.delay(2, 3)
+r = tasks.add.delay(2, 3)
+r.state
+r.result
+
+tasks.long_running_add(3, 4)
+r = asks.long_running_add.delay(3, 4)
+r.state
+r.state
+r.result
+
+r = tasks.long_running_add(4, 5)
+r.get()
+</code></pre>
+</body></html>

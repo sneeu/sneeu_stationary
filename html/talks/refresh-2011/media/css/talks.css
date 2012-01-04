@@ -1,0 +1,57 @@
+body {
+	background: #fff;
+	color: #333;
+	font: 100%/1.5em "Helvetica Neue",Arial,Helvetica,sans-serif;
+	margin: 3em auto;
+	width: 1020px;
+}
+
+a,
+a:link,
+a:visited {
+	color: #be0026;
+}
+a:active,
+a:hover {
+	color: #000;
+}
+
+h1 {
+	font-size: 2em;
+	font-weight: bold;
+	line-height: 1.5em;
+	padding: 0 0 0.75em;
+}
+h2 {
+	font-size: 1.5em;
+	font-weight: bold;
+	line-height: 2em;
+}
+p,
+ol {
+	padding: 0 0 1.5em;
+}
+
+article > header {
+	padding: 0 10px 3em;
+}
+article > header h1 {
+	text-transform: uppercase;
+}
+article > header h1 + p {
+	margin-top: -1.5em;
+}
+article > section {
+	float: left;
+	padding: 0 10px 1.5em;
+	width: 320px;
+}
+article > section:nth-child(3n-1) {
+	clear: left;
+}
+
+img + p {
+	font-size: 0.8em;
+	line-height: 1.875em;
+	padding: 0;
+}
