@@ -1,3 +1,4 @@
-# Stationary
+# sneeu_stationary
 
-As if the world needed another static site generator.
+The [stationary](https://github.com/sneeu/stationary) source for
+[sneeu.com](http://sneeu.com/).
