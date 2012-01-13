@@ -1,3 +1,4 @@
+import codecs
 import config
 import shutil
 import jinja2
@@ -94,7 +95,7 @@ class Page(object):
 
 
 def post_from_filename(filename):
-    with open(filename) as post_file:
+    with codecs.open(filename, encoding='utf-8') as post_file:
         post_data = post_file.read()
 
     headers, content = re.split(POST_HEADER_SEP_RE, post_data, 1)
@@ -123,7 +124,7 @@ def blog_from_path(title, path):
 
 
 def page_from_filename(filename, base_path):
-    with open(filename) as page_file:
+    with codecs.open(filename, encoding='utf-8') as page_file:
         page_data = page_file.read()
 
     header, content = re.split(POST_HEADER_SEP_RE, page_data, 1)
@@ -167,14 +168,14 @@ def build():
         page_template = environment.get_template(page_template_name)
         if not os.path.isdir(os.path.dirname(page.path)):
             os.makedirs(os.path.dirname(page.path))
-        with open(page.path, 'w') as out_file:
+        with codecs.open(page.path, encoding='utf-8', mode='w') as out_file:
             out_file.write(page_template.render(page=page))
 
     # Render the base blog page
     blog_template = environment.get_template('index.html')
     if not os.path.isdir(os.path.dirname(blog.path)):
         os.makedirs(os.path.dirname(blog.path))
-    with open(blog.path, 'w') as out_file:
+    with codecs.open(blog.path, encoding='utf-8', mode='w') as out_file:
         out_file.write(blog_template.render(blog=blog))
 
     # Render post pages
@@ -182,7 +183,7 @@ def build():
     for post in blog.posts:
         if not os.path.isdir(os.path.dirname(post.path)):
             os.makedirs(os.path.dirname(post.path))
-        with open(post.path, 'w') as out_file:
+        with codecs.open(post.path, encoding='utf-8', mode='w') as out_file:
             out_file.write(post_template.render(blog=blog, post=post))
 
 

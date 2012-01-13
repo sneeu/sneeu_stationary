@@ -12,6 +12,11 @@ body {
 a {
 	color: #00c;
 }
+code, pre {
+	background: #272822;
+	color: #f8f8f2;
+	font: 100%/1em Menlo,Monaco,"Courier New",monospace;
+}
 
 h1 {
 	font-size: 2em;
@@ -25,6 +30,9 @@ h2 {
 }
 p {
 	padding: 0 0 1.5em;
+}
+pre {
+	line-height: 1.5em;
 }
 
 header nav {
@@ -47,6 +55,7 @@ footer {
 }
 
 .code {
+	margin: 0 0 1.5em;
 	padding: 1.5em 0;
 }
 

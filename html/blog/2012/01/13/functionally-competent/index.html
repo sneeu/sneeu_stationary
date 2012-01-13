@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8" />
+	<title>blog</title>
+
+	<link href="/static/css/site.css" rel="stylesheet" />
+	<link href="/static/css/code.css" rel="stylesheet" />
+
+</head>
+<body>
+
+	<header>
+		
+			<nav>
+				<ul>
+					<li>
+						<a href="/blog/">blog</a>
+					</li>
+				</ul>
+			</nav>
+		
+	</header>
+
+	
+	<h1>Functionally Competent</h1>
+
+	<article class="post_body">
+		<p>Here’s a piece of somewhat–ugly, single–purpose <a href="http://python.org/">Python</a> code, what it does is not particularly interesting:</p>
+
+<div class="code"><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">span</span><span class="p">(</span><span class="n">data</span><span class="p">):</span><br />       <span class="n">r</span> <span class="o">=</span> <span class="p">[]</span><br />       <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span><br />           <span class="k">if</span> <span class="n">r</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]:</span><br />               <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><br />           <span class="k">else</span><span class="p">:</span><br />               <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span><br />       <span class="k">return</span> <span class="n">r</span><br /></pre></div></div>
+
+<p>After a couple of days of wondering how this might be done in <a href="http://clojure.org/">Clojure</a>, I stumbled upon the idea of a partition, and went looking in the docs. Here’s the Clojure version:</p>
+
+<div class="code"><div class="highlight"><pre>    <span class="p">(</span><span class="k">defn </span><span class="nv">span</span> <span class="p">[</span><span class="nv">data</span><span class="p">]</span><br />      <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">spn</span><span class="p">]</span> <span class="p">[(</span><span class="nb">first </span><span class="p">(</span><span class="nb">first </span><span class="nv">spn</span><span class="p">))</span><br />                      <span class="p">(</span><span class="nb">first </span><span class="p">(</span><span class="nb">last </span><span class="nv">spn</span><span class="p">))</span><br />                      <span class="p">(</span><span class="nb">second </span><span class="p">(</span><span class="nb">first </span><span class="nv">spn</span><span class="p">))])</span><br />        <span class="p">(</span><span class="nf">partition-by</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">row</span><span class="p">]</span> <span class="p">(</span><span class="nb">second </span><span class="nv">row</span><span class="p">))</span> <span class="nv">data</span><span class="p">)))</span><br /></pre></div></div>
+
+<p>To my eye, the Clojure version is a lot nicer (although it could be novelty, or the square brackets containing “magic numbers” in the Python version).</p>
+
+<p>The beauty of the Clojure version comes from the <code>partition-by</code> function, replicated below:</p>
+
+<div class="code"><div class="highlight"><pre>    <span class="p">(</span><span class="k">defn </span><span class="nv">partition-by</span><br />      <span class="p">[</span><span class="nv">f</span> <span class="nv">coll</span><span class="p">]</span><br />      <span class="p">(</span><span class="nf">lazy-seq</span><br />       <span class="p">(</span><span class="nb">when-let </span><span class="p">[</span><span class="nv">s</span> <span class="p">(</span><span class="nb">seq </span><span class="nv">coll</span><span class="p">)]</span><br />         <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">fst</span> <span class="p">(</span><span class="nb">first </span><span class="nv">s</span><span class="p">)</span><br />               <span class="nv">fv</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">fst</span><span class="p">)</span><br />               <span class="nv">run</span> <span class="p">(</span><span class="nb">cons </span><span class="nv">fst</span> <span class="p">(</span><span class="nb">take-while </span><span class="o">#</span><span class="p">(</span><span class="nv">=</span> <span class="nv">fv</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">%</span><span class="p">))</span> <span class="p">(</span><span class="nb">next </span><span class="nv">s</span><span class="p">)))]</span><br />           <span class="p">(</span><span class="nb">cons </span><span class="nv">run</span> <span class="p">(</span><span class="nf">partition-by</span> <span class="nv">f</span> <span class="p">(</span><span class="nb">seq </span><span class="p">(</span><span class="nb">drop </span><span class="p">(</span><span class="nb">count </span><span class="nv">run</span><span class="p">)</span> <span class="nv">s</span><span class="p">))))))))</span><br /></pre></div></div>
+
+<p>After a few minutes of working out what it does, it “popped”, and at the same time I had a break–through in my understanding of functional programming.</p>
+
+<p>For completeness, here’s a version of <code>partition-by</code> in Python:</p>
+
+<div class="code"><div class="highlight"><pre>    <span class="kn">import</span> <span class="nn">itertools</span><br />&nbsp;<br />    <span class="k">def</span> <span class="nf">partition_by</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">coll</span><span class="p">):</span><br />        <span class="k">if</span> <span class="ow">not</span> <span class="n">coll</span><span class="p">:</span><br />            <span class="k">return</span> <span class="p">[]</span><br />        <span class="n">head</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">coll</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coll</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><br />        <span class="n">run</span> <span class="o">=</span> <span class="p">[</span><span class="n">head</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">takewhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="n">f</span><span class="p">(</span><span class="n">head</span><span class="p">),</span> <span class="n">tail</span><span class="p">))</span><br />        <span class="k">return</span> <span class="p">[</span><span class="n">run</span><span class="p">]</span> <span class="o">+</span> <span class="n">func_partition_by</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">coll</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">run</span><span class="p">):])</span><br /></pre></div></div>
+
+<p>Which can be used to refactor the original <code>span</code> function to:</p>
+
+<div class="code"><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">span</span><span class="p">(</span><span class="n">data</span><span class="p">):</span><br />        <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><br />            <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span><br />            <span class="n">partition_by</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">))</span><br /></pre></div></div>
+
+<p>The nice thing about the original Clojure version, and the final Python version is that the format of the “rows”, and the logic for partitioning data are separate: something I wouldn’t have done if it weren’t for my recent interest in Clojure.</p>
+	</article>
+
+
+	<footer>
+		<p>&copy; 2012&mdash;John Sutherland</p>
+	</footer>
+
+</body>
+</html>
