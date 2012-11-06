@@ -95,6 +95,7 @@ class Page(object):
 
 
 def post_from_filename(filename):
+    print filename
     with codecs.open(filename, encoding='utf-8') as post_file:
         post_data = post_file.read()
 
