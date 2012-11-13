@@ -17,6 +17,6 @@ def serve():
 
 
 def deploy():
-    local('git add . && git commit && git push')
+    #local('git add . && git commit && git push')
     with cd(config.DEPLOY_PATH):
         run('git pull')
